@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - EnemyBullet
+  - Bullet
+  - Enemy
+  - Door
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -11,9 +16,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Enemy
+  - Player
+  - Platform
   - 
   - 
   - 
@@ -38,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackGround
+    uniqueID: 2101554223
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
