@@ -16,6 +16,7 @@ public class Enemy2Script : MonoBehaviour
     [SerializeField] private Vector2[] bulletDirections;
     [SerializeField] private float dropRate;
     [SerializeField] private float hitDelay;
+    [SerializeField] private GameObject enemyTrigger;
 
     #endregion
 
@@ -25,7 +26,7 @@ public class Enemy2Script : MonoBehaviour
     [HideInInspector] public bool attackPlayer;
     private Vector3 _initPosition;
     private Vector2 _playerTarget;
-    private bool _explode;
+    [HideInInspector] public bool _explode;
     private float _timer;
     private int _hitsCounter;
     private float _delayCounter;
@@ -70,7 +71,7 @@ public class Enemy2Script : MonoBehaviour
             // When the Enemy touch the ground it will start a timer till explosion
         {
             attackPlayer = false;
-            gameObject.GetComponentInChildren<CircleCollider2D>().enabled = false;
+            enemyTrigger.GetComponent<BoxCollider2D>().enabled = false;
             _explode = true;
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
@@ -114,6 +115,7 @@ public class Enemy2Script : MonoBehaviour
     private void deactiveEnemy()
     {
         GameManager.addToDeadEnemies(gameObject);
+        GameManager.InvokeEnemyKilled();
         gameObject.SetActive(false);
     }
 

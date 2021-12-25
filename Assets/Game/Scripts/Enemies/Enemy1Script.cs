@@ -67,6 +67,7 @@ public class Enemy1Script : MonoBehaviour
     private void DeActiveEnemy()
     {
         GameManager.addToDeadEnemies(gameObject);
+        GameManager.InvokeEnemyKilled();
         gameObject.SetActive(false);
     }
 

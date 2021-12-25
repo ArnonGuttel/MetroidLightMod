@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2135314835633390000}
   - component: {fileID: 3983667875885714855}
   - component: {fileID: 2328165438134692961}
+  - component: {fileID: 4976284985530133878}
   - component: {fileID: 2109472920291829484}
   - component: {fileID: 2109472920291829482}
   - component: {fileID: 9003537673937420939}
@@ -172,6 +173,22 @@ MonoBehaviour:
   jumpSound: {fileID: 4490741912459133585}
   playerHitSound: {fileID: -1448275938395789399}
   playerDeadSound: {fileID: -3272781845658107723}
+--- !u!114 &4976284985530133878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109472920291829481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c7bac0c8e23b149adec08e48504761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightGameObject: {fileID: 3216092319813959251}
+  lightGain: 2
+  lightLost: 1
+  MaxLight: 10
 --- !u!50 &2109472920291829484
 Rigidbody2D:
   serializedVersion: 4
@@ -574,7 +591,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.48
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.8
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 2f2c437d00000000

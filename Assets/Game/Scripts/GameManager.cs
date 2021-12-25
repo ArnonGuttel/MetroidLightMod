@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public static event Action OpenHiddenDoor;
     public static event Action PlayerDead;
     public static event Action GameWon;
+    public static event Action EnemyKilled;
 
     public static void KeyTaken()
     {
@@ -48,6 +49,11 @@ public class GameManager : MonoBehaviour
         GameWon?.Invoke();
     }
 
+    public static void InvokeEnemyKilled()
+    {
+        EnemyKilled?.Invoke();
+    }
+    
     private void hideTimer()
     {
         _startTimer = false;
@@ -140,6 +146,8 @@ public class GameManager : MonoBehaviour
     {
         _shared._resetFlag = true;
     }
+    
+    
 
     #endregion
 
@@ -152,7 +160,7 @@ public class GameManager : MonoBehaviour
 
     public void playAgain()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Metroid Game");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameUpdate");
     }
 
     public void resumeGame()
@@ -183,4 +191,6 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
+
+
 }

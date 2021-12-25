@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _audioManager = gameObject.GetComponent<PlayerAudioManager>();
     }
-
     void Update()
     {
         if (PlayerDead || LockMovement)
