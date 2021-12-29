@@ -50,6 +50,7 @@ public class Enemy2Script : MonoBehaviour
         _delayCounter = 0;
         _timer = 0;
         gameObject.GetComponent<Collider2D>().enabled = true;
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -130,6 +131,8 @@ public class Enemy2Script : MonoBehaviour
         gameObject.GetComponent<Animator>().SetTrigger("EnemyDead");
         gameObject.GetComponent<Collider2D>().enabled = false;
         Invoke("deactiveEnemy", GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+        
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void InstantiateBullets()

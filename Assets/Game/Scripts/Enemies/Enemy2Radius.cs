@@ -1,5 +1,3 @@
-using System;
-using System.Timers;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
@@ -14,19 +12,23 @@ public class Enemy2Radius : MonoBehaviour
     [SerializeField] private float lightChangeSpeed;
 
     [SerializeField] private float ColliderChangeSpeed;
+    [SerializeField] private float timeTillAttack;
     #endregion
 
     #region Fields
-
-    // private float _circleRaduis;
-    // private CircleCollider2D _circleCollider2D;
+    
     private BoxCollider2D _boxCollider2D;
     private Vector2 _colliderInitSize;
+    
     private Light2D _enemyLight;
     private Color _lightInitColor;
     private float _lightInitIntense;
-    private float _lightInitDir;
+    private float _lightInitOuterAngle;
+    private float _lightInitInnerAngle;
     private int _lightChangeDirection = -1;
+    
+    private bool _startTimer;
+    private float _timer;
 
 
     #endregion
@@ -35,32 +37,39 @@ public class Enemy2Radius : MonoBehaviour
     
     private void Awake()
     {
-        // _circleCollider2D = GetComponent<CircleCollider2D>();
-        // _circleRaduis = _circleCollider2D.radius;
         _enemyLight = enemyLightGameObject.GetComponent<Light2D>();
-        _lightInitDir = _enemyLight.pointLightOuterAngle;
+        _lightInitOuterAngle = _enemyLight.pointLightOuterAngle;
+        _lightInitInnerAngle = _enemyLight.pointLightInnerAngle;
         _lightInitColor = _enemyLight.color;
         _lightInitIntense = _enemyLight.intensity;
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _colliderInitSize = _boxCollider2D.size;
+
+        _timer = timeTillAttack;
     }
 
     private void Update()
     {
         changeLightAngle();
         changeBoxColliderSize();
+        if (! _startTimer) return;
+        if (_timer <= 0)
+            attackPlayer();
+        else
+            _timer -= Time.deltaTime;
     }
 
     private void OnEnable()
     {
-        // _circleCollider2D.enabled = true;
-        // _circleCollider2D.radius = _circleRaduis;
         _boxCollider2D.enabled = true;
         _boxCollider2D.size = _colliderInitSize;
+        _enemyLight.pointLightOuterAngle = _lightInitOuterAngle;
+        _enemyLight.pointLightInnerAngle = _lightInitInnerAngle;
         _lightChangeDirection = -1;
-        _enemyLight.pointLightOuterAngle = _lightInitDir;
         _enemyLight.color = _lightInitColor;
         _enemyLight.intensity = _lightInitIntense;
+
+        _timer = timeTillAttack;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -68,31 +77,44 @@ public class Enemy2Radius : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             script.playerPosition = other.gameObject.transform.position;
-            script.attackPlayer = true;
-            gameObject.GetComponentInParent<Animator>().SetTrigger("EnemyActivate");
-            _enemyLight.color = Color.red;
-            _enemyLight.intensity = 1;
+            _startTimer = true;
+            gameObject.GetComponentInParent<Animator>().SetBool("PlayerDetected",true);
         }
     }
 
     private void OnTriggerStay2D(Collider2D other)
-        // reduce radius size
     {
         if (script.attackPlayer)
         {
             if (other.gameObject.CompareTag("Player"))
             {
                 script.playerPosition = other.gameObject.transform.position;
-                // _circleCollider2D.radius -= 0.1f * Time.deltaTime;
             }
         }
     }
 
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _startTimer = false;
+            _timer = timeTillAttack;
+            gameObject.GetComponentInParent<Animator>().SetBool("PlayerDetected",false);
+        }
+            
+    }
+
     #endregion
 
+    private void attackPlayer()
+    {
+        script.attackPlayer = true;
+        gameObject.GetComponentInParent<Animator>().SetTrigger("AttackPlayer");
+        gameObject.GetComponentInParent<Animator>().SetTrigger("EnemyActivate");
+    }
     private void changeLightAngle()
     {
-        if (script.attackPlayer || script._explode) return;
+        if (script.attackPlayer || script._explode || _startTimer) return;
         _enemyLight.pointLightInnerAngle += lightChangeSpeed * _lightChangeDirection * Time.deltaTime;
         _enemyLight.pointLightOuterAngle += lightChangeSpeed * _lightChangeDirection * Time.deltaTime;
         if (_enemyLight.pointLightInnerAngle <= lightMinAngle)
@@ -103,7 +125,7 @@ public class Enemy2Radius : MonoBehaviour
 
     private void changeBoxColliderSize()
     {
-        if (script.attackPlayer || script._explode) return;
+        if (script.attackPlayer || script._explode || _startTimer) return;
         var temp = _boxCollider2D.size;
         temp.x +=  lightChangeSpeed * _lightChangeDirection * Time.deltaTime * ColliderChangeSpeed;
         _boxCollider2D.size = temp;

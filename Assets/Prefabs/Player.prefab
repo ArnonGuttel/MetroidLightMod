@@ -187,8 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightGameObject: {fileID: 3216092319813959251}
   lightGain: 2
-  lightLost: 1
-  MaxLight: 10
+  lightLost: 0.7
+  MaxLight: 7
 --- !u!50 &2109472920291829484
 Rigidbody2D:
   serializedVersion: 4

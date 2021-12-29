@@ -13,6 +13,7 @@ public class WaypointFollower : MonoBehaviour
     #region Fields
 
     private int _waypointsArrayIndex;
+    private float _enemySpeed;
 
     #endregion
 
@@ -21,6 +22,7 @@ public class WaypointFollower : MonoBehaviour
     private void OnEnable()
     {
         _waypointsArrayIndex = 0;
+        _enemySpeed = speed;
     }
 
     private void Update()
@@ -41,12 +43,24 @@ public class WaypointFollower : MonoBehaviour
                 _waypointsArrayIndex = 0;
         }
         transform.position = Vector2.MoveTowards(transform.position,
-            waypoints[_waypointsArrayIndex].transform.position, speed * Time.deltaTime);
+            waypoints[_waypointsArrayIndex].transform.position, _enemySpeed * Time.deltaTime);
     }
 
     #endregion
 
+    #region Methods
 
+    public void SetSpeed(float speedValue)
+    {
+        _enemySpeed = speedValue;
+    }
+
+    public void ResetSpeed()
+    {
+        _enemySpeed = speed;
+    }
+
+    #endregion
 
 
 

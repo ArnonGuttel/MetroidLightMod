@@ -14,7 +14,7 @@ public class Enemy1Script : MonoBehaviour
     #endregion
 
     #region Fields
-
+    
     private Vector3 _initPosition;
     private int _hitCounter;
 
@@ -32,6 +32,7 @@ public class Enemy1Script : MonoBehaviour
         transform.position = _initPosition;
         _hitCounter = 0;
         gameObject.GetComponent<Collider2D>().enabled = true;
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -62,6 +63,8 @@ public class Enemy1Script : MonoBehaviour
         gameObject.GetComponent<Animator>().SetTrigger("EnemyDead");
         gameObject.GetComponent<Collider2D>().enabled = false;
         Invoke(nameof(DeActiveEnemy),GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+        
+        transform.GetChild(0).gameObject.SetActive(false);
     }
     
     private void DeActiveEnemy()

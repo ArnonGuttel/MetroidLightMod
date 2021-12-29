@@ -48,7 +48,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.1
   m_Color: {r: 1, g: 0.28773582, b: 0.28773582, a: 1}
-  m_Intensity: 0.6
+  m_Intensity: 1.5
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 2f2c437d00000000
@@ -160,6 +160,7 @@ MonoBehaviour:
   lightMaxAngle: 45
   lightChangeSpeed: 15
   ColliderChangeSpeed: 0.15
+  timeTillAttack: 1
 --- !u!50 &7668648205207367563
 Rigidbody2D:
   serializedVersion: 4
@@ -312,7 +313,7 @@ MonoBehaviour:
   enemyBullet: {fileID: 7323704332384061446, guid: 54f2e7d264269ce4da4f2dfab255f6da, type: 3}
   enregyBall: {fileID: 6907323533845595635, guid: ac34e293093685a4fbd43111ea298b14, type: 3}
   hitsTillDestroy: 3
-  enemySpeed: 8
+  enemySpeed: 10
   timeTillExplosion: 1
   bulletSpeed: 11
   bulletTime: 0.5
@@ -327,6 +328,7 @@ MonoBehaviour:
   enemyTrigger: {fileID: 2628621929352305212}
   playerPosition: {x: 0, y: 0, z: 0}
   attackPlayer: 0
+  _explode: 0
 --- !u!61 &5838080361436079569
 BoxCollider2D:
   m_ObjectHideFlags: 0

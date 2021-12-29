@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class RollPowerUpScript : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class RollPowerUpScript : MonoBehaviour
             other.gameObject.GetComponent<PlayerMovement>().rollPowerUp = true;
             gameObject.GetComponent<AudioSource>().Play(0);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            gameObject.GetComponentInChildren<Light2D>().enabled = false;
             Destroy(gameObject, gameObject.GetComponent<AudioSource>().clip.length / 2f);
         }
     }
