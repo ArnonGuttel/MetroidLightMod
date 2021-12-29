@@ -27353,6 +27353,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 7062857060563496313, guid: 8731b1bf1cd402b42aec093fc758a0b2, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7062857060563496313, guid: 8731b1bf1cd402b42aec093fc758a0b2, type: 3}
       propertyPath: m_Color.b
       value: 0.98039216
       objectReference: {fileID: 0}
@@ -27371,10 +27375,6 @@ PrefabInstance:
     - target: {fileID: 7062857060563496313, guid: 8731b1bf1cd402b42aec093fc758a0b2, type: 3}
       propertyPath: m_LightOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7062857060563496313, guid: 8731b1bf1cd402b42aec093fc758a0b2, type: 3}
-      propertyPath: m_OverlapOperation
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8646273520146385241, guid: 8731b1bf1cd402b42aec093fc758a0b2, type: 3}
       propertyPath: enemyPositions.Array.size
