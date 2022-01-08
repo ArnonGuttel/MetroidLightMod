@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     #region Inspector
-
+    
     [SerializeField] private int playerHitDamage;
     [SerializeField] private int energyRestore;
     [SerializeField] private TextMeshProUGUI energyFrame;

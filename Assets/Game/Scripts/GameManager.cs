@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 
 public class GameManager : MonoBehaviour
@@ -14,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameWonUI;
     [SerializeField] private GameObject gamePausedUI;
     [SerializeField] private float Timer;
+    [SerializeField] private PlayableDirector TimeLine;
 
     #endregion
 
@@ -24,7 +27,9 @@ public class GameManager : MonoBehaviour
     private bool _resetFlag;
     private bool _startTimer;
     private bool _isPaused;
-
+    private bool _freezeGameMovement = true;
+    private bool _TimeLineRunning = true;
+    
     #endregion
 
     #region Events
@@ -53,7 +58,7 @@ public class GameManager : MonoBehaviour
     {
         EnemyKilled?.Invoke();
     }
-    
+
     private void hideTimer()
     {
         _startTimer = false;
@@ -104,6 +109,17 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (_TimeLineRunning)
+        {
+            if (TimeLine.state == PlayState.Paused)
+            {
+                _freezeGameMovement = false;
+                GetComponent<AudioSource>().Play(0);
+                _TimeLineRunning = false;
+                TimeLine.gameObject.SetActive(false);
+            }
+        }
+
         if (_startTimer)
             runTimer();
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -146,8 +162,8 @@ public class GameManager : MonoBehaviour
     {
         _shared._resetFlag = true;
     }
-    
-    
+
+    public static bool FreezeGameMovement => _shared._freezeGameMovement;
 
     #endregion
 
@@ -161,6 +177,12 @@ public class GameManager : MonoBehaviour
     public void playAgain()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameUpdate");
+    }
+
+    public void RestartGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("OpenScreen");
+        Time.timeScale = 1;
     }
 
     public void resumeGame()

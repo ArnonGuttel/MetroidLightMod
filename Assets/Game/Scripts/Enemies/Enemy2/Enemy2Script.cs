@@ -116,7 +116,6 @@ public class Enemy2Script : MonoBehaviour
     private void deactiveEnemy()
     {
         GameManager.addToDeadEnemies(gameObject);
-        GameManager.InvokeEnemyKilled();
         gameObject.SetActive(false);
     }
 
@@ -131,7 +130,7 @@ public class Enemy2Script : MonoBehaviour
         gameObject.GetComponent<Animator>().SetTrigger("EnemyDead");
         gameObject.GetComponent<Collider2D>().enabled = false;
         Invoke("deactiveEnemy", GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
-        
+        GameManager.InvokeEnemyKilled();
         transform.GetChild(0).gameObject.SetActive(false);
     }
 

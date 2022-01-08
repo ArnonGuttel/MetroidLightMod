@@ -22,6 +22,8 @@ public class PlayerFireScript : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.FreezeGameMovement) return;
+        
         bool ground = gameObject.GetComponent<PlayerMovement>().onGround;
 
         if (Input.GetKeyDown(KeyCode.RightArrow))

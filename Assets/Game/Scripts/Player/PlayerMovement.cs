@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+        if (GameManager.FreezeGameMovement) return;
+        
         if (PlayerDead || LockMovement)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);

@@ -27,6 +27,8 @@ public class WaypointFollower : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.FreezeGameMovement) return;
+        
         if (delayCounter > 0)
         {
             delayCounter -= Time.deltaTime;
