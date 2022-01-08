@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Timers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,50 +9,30 @@ public class Enemy3Script : MonoBehaviour
 {
     #region Inspector
     
-    public GameObject EnregyBall;
-    [SerializeField] private float hitDelay; // for how long to freeze enemy movement after bullet hit
-    [SerializeField] private int hitsTillDestroy;
-    [SerializeField] private float dropRate; // drop rate for energy ball
-    [SerializeField] private Vector2 direction;
-    [SerializeField] private float speed;
+    [SerializeField] private GameObject EnemyBullet;
+    [SerializeField] private float bulletSpeed;
+    [SerializeField] private float bulletDestroyTime;
+    [SerializeField] private int bulletsNumber;
+    [SerializeField] private float bulletInstantiateDelay;
+    [SerializeField] private Vector2 bulletDirection;
 
     #endregion
 
     #region Fields
-
-    private Rigidbody2D _rb;
+    
     private Vector3 _initPosition;
-    private int _hitCounter;
     private bool _attackPlayer;
+    private bool _canAttack = true;
 
     #endregion
 
     #region MonoBehaviour
-
-    private void Awake()
+    
+    private void OnTriggerStay2D(Collider2D other)
     {
-        _initPosition = gameObject.transform.position;
-        _rb = GetComponent<Rigidbody2D>();
-    }
-
-    private void OnEnable()
-    {
-        transform.position = _initPosition;
-        _hitCounter = 0;
-        gameObject.GetComponent<Collider2D>().enabled = true;
-        transform.GetChild(0).gameObject.SetActive(true);
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Bullet"))
+        if (other.CompareTag("Player") && _canAttack)
         {
-            gameObject.GetComponent<AudioSource>().Play(0);
-            _hitCounter++;
-            if (_hitCounter == hitsTillDestroy)
-                EnemyDead();
-            gameObject.GetComponent<Animator>().SetTrigger("EnemyHit");
-            GetComponent<WaypointFollower>().delayCounter = hitDelay;
+            AttackPlayer();
         }
     }
     
@@ -59,33 +42,26 @@ public class Enemy3Script : MonoBehaviour
 
     public void AttackPlayer()
     {
-        float velX = direction.x * speed;
-        float velY = direction.y * speed;
-        _rb.velocity = new Vector2(velX, velY);
-        _attackPlayer = true;
-    }
-    private void EnemyDead()
-    // check for energy ball instantiation, play "EnemyDead" animation, and update GameManager DeadEnemies. 
-    {
-        if (Random.Range(0f, 1f) <= dropRate)
-        {
-            var transform1 = transform;
-            Instantiate(EnregyBall, transform1.position, transform1.rotation);
-        }
-        gameObject.GetComponent<Animator>().SetTrigger("EnemyDead");
-        gameObject.GetComponent<Collider2D>().enabled = false;
-        Invoke(nameof(DeActiveEnemy),GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
-        
-        transform.GetChild(0).gameObject.SetActive(false);
-    }
-    
-    private void DeActiveEnemy()
-    {
-        GameManager.addToDeadEnemies(gameObject);
-        GameManager.InvokeEnemyKilled();
-        gameObject.SetActive(false);
+        _canAttack = false;
+        StartCoroutine(InstantiateBullet());
     }
 
+    IEnumerator InstantiateBullet()
+    {
+        for (int i=0 ; i<bulletsNumber; i++)
+        {
+            GameObject bullet = Instantiate(EnemyBullet);
+            Vector3 temp = transform.position;
+            bullet.transform.position = temp;
+            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+            bulletRb.velocity = bulletDirection * bulletSpeed;
+            Destroy(bullet, bulletDestroyTime);
+            GetComponent<Animator>().SetTrigger("EnemyFire");
+            yield return new WaitForSeconds(bulletInstantiateDelay);
+        }
+        _canAttack = true;
+    }
+    
     #endregion
     
 
