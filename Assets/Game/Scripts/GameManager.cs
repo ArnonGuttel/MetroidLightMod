@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
         TimerFrame.gameObject.SetActive(true);
         _startTimer = true;
     }
+    
 
     #endregion
 

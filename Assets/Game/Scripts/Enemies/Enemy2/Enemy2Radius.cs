@@ -79,6 +79,7 @@ public class Enemy2Radius : MonoBehaviour
             script.playerPosition = other.gameObject.transform.position;
             _startTimer = true;
             gameObject.GetComponentInParent<Animator>().SetBool("PlayerDetected",true);
+            GetComponent<AudioSource>().Play();
         }
     }
 
@@ -100,6 +101,7 @@ public class Enemy2Radius : MonoBehaviour
             _startTimer = false;
             _timer = timeTillAttack;
             gameObject.GetComponentInParent<Animator>().SetBool("PlayerDetected",false);
+            GetComponent<AudioSource>().Stop();
         }
             
     }
