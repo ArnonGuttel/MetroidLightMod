@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gamePausedUI;
     [SerializeField] private float Timer;
     [SerializeField] private PlayableDirector TimeLine;
+    [SerializeField] private GameObject helpPanel;
 
     #endregion
 
@@ -132,6 +133,11 @@ public class GameManager : MonoBehaviour
             else
                 pauseGame();
         }
+
+        if (Input.GetKey(KeyCode.Q))
+            helpPanel.SetActive(true);
+        else
+            helpPanel.SetActive(false);
     }
 
     #endregion

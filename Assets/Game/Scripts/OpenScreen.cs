@@ -1,14 +1,11 @@
-using System;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class OpenScreen : MonoBehaviour
 {
     [SerializeField] private GameObject instructionPanel;
     [SerializeField] private GameObject SceneText;
-    [SerializeField] private PlayableDirector TimeLine;
-    
+
 
     // Update is called once per frame
     void Update()

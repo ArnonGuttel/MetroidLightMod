@@ -15,7 +15,7 @@ public class Enemy3Script : MonoBehaviour
     [SerializeField] private int bulletsNumber;
     [SerializeField] private float bulletInstantiateDelay;
     [SerializeField] private Vector2 bulletDirection;
-    [SerializeField] private bool autoFire;
+    [SerializeField] private bool autoFire; // enemy auto fire or fire only on Player detection
     [SerializeField] private float autoFireDelay;
 
     #endregion
@@ -54,7 +54,8 @@ public class Enemy3Script : MonoBehaviour
 
     #region Methods
 
-    public void AttackPlayer()
+    private void AttackPlayer()
+        // Once the Player entered the Enemy collider,the enemy will fire a bullet every "bulletInstantiateDelay".
     {
         _canAttack = false;
         StartCoroutine(InstantiateBullet());
@@ -65,14 +66,19 @@ public class Enemy3Script : MonoBehaviour
         for (int i = 0; i < bulletsNumber; i++)
         {
             GameObject bullet = Instantiate(EnemyBullet);
-            Vector3 temp = transform.position;
+
+            Vector3 temp = transform.position; // set the initial Bullet position
             bullet.transform.position = temp;
-            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+
+            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>(); // set the velocity
             bulletRb.velocity = bulletDirection * bulletSpeed;
-            Destroy(bullet, bulletDestroyTime);
-            GetComponent<Animator>().SetTrigger("EnemyFire");
+
+            GetComponent<Animator>().SetTrigger("EnemyFire"); // active the animation and sound
             if (!autoFire)
                 GetComponent<AudioSource>().Play();
+
+            Destroy(bullet, bulletDestroyTime);
+
             yield return new WaitForSeconds(bulletInstantiateDelay);
         }
 
@@ -87,7 +93,6 @@ public class Enemy3Script : MonoBehaviour
             yield return new WaitForSeconds(autoFireDelay);
         }
     }
-
 
     private void StartAutoFire()
     {

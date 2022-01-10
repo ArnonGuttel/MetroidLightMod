@@ -16,7 +16,6 @@ public class PlayerLight : MonoBehaviour
     #region fields
 
     private Light2D _light2D;
-    private float _initInnerRadius;
     private float _initOuterRadius;
     private float _currentRadius;
 
@@ -37,7 +36,6 @@ public class PlayerLight : MonoBehaviour
     private void Start()
     {
         _light2D = lightGameObject.GetComponent<Light2D>();
-        _initInnerRadius = _light2D.pointLightInnerRadius;
         _initOuterRadius = _light2D.pointLightOuterRadius;
         _currentRadius = _initOuterRadius;
     }
@@ -53,13 +51,7 @@ public class PlayerLight : MonoBehaviour
     #endregion
 
     #region Methods
-
-    private void ResetLight()
-    {
-        _light2D.pointLightInnerRadius = _initInnerRadius;
-        _light2D.pointLightOuterRadius = _initOuterRadius;
-    }
-
+    
     private void AddLight()
     {   if (_currentRadius >= MaxLight) return;
         _light2D.pointLightInnerRadius += lightGain;

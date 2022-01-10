@@ -180,19 +180,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Press Arrow Keys to move
+  m_text: 'Arrow Keys to move
 
     Down Arrow Key to Roll
 
-    Short press
-    on Space Key to Jump,
+    Space Key to Jump,
 
-    Long press to Jump higher
+    Long
+    press to long Jump
 
     "S" button to Fire
 
-    esc
-    button to pause
+    esc button to pause
 
 '
   m_isRightToLeft: 0
@@ -368,7 +367,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instructionPanel: {fileID: 1719305799}
   SceneText: {fileID: 2073142556}
-  TimeLine: {fileID: 1301449960}
 --- !u!4 &678714517
 Transform:
   m_ObjectHideFlags: 0
@@ -895,9 +893,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: '
 
-    press ''Q'' button for help
+    ''Q'' for help
 
-    press esc to quit
+    esc to quit
 
     1986 Nintendo
 
@@ -1405,7 +1403,7 @@ GameObject:
   - component: {fileID: 1719305802}
   - component: {fileID: 1719305801}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Help Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
