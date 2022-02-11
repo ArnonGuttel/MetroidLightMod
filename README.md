@@ -7,7 +7,8 @@
   </h1>
 <h3 align="center">  
   
-  An mod to the origin Metroid by Nintendo, using Unity & C#
+  A mod to the original NES Metroid by Nintendo, using Unity & C#
+
   </h3>
   
 ## Table Of Content
