@@ -22,7 +22,7 @@
 ## General
 
 The game was created as final project of "Game Development Foundations course" by [NotSlot](https://github.com/notslot) within my Computer Science B.Sc.  
-The original assignment was to upgrade a 1980s game following a remake of the game (that can be found on [MetroidRemake](https://github.com/ArnonGuttel/MetroidRemake). 
+The original assignment was to upgrade a 1980s game following a remake of the game (that can be found on [MetroidRemake](https://github.com/ArnonGuttel/MetroidRemake)) 
 I personally choose to add lights mechanics to the game, I feel that the new mechanics add an stelth\rush element to the game.
 
 ## Installation
