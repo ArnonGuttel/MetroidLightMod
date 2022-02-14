@@ -29,7 +29,7 @@ I personally choose to add lights mechanics to the game, I feel that the new mec
 
 - Windows:      
   - &emsp; Download the [WindowsBuild](https://github.com/ArnonGuttel/MetroidLightMod/tree/main/WindowsBuild) folder 
-  - &emsp; Run the Breakout.exe executable file.
+  - &emsp; Run the Metroid NES Upgrade.exe executable file.
  
  - Mac
    - &emsp; Download the [MacBuild](https://github.com/ArnonGuttel/MetroidLightMod/tree/main/MacBuild.app/Contents) folder 
